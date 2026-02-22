@@ -1,0 +1,698 @@
+/* ============================================
+   Pages-Specific Styles
+   ============================================ */
+
+/* Connection Page */
+.connection-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 20px;
+}
+
+.geo-map-container {
+    width: 100%;
+    height: 200px;
+    background: var(--bg-primary);
+    border-radius: var(--radius-md);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.geo-map-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+}
+
+.map-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    color: var(--text-muted);
+}
+
+.map-placeholder i {
+    font-size: 2.5rem;
+    color: var(--accent-primary);
+    opacity: 0.3;
+}
+
+/* Ping Page */
+.ping-results-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.world-map-ascii {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    min-height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-x: auto;
+}
+
+.ping-heatmap {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 8px;
+    width: 100%;
+}
+
+.ping-heatmap-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 8px;
+    border-radius: var(--radius-md);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    transition: var(--transition-fast);
+    cursor: default;
+}
+
+.ping-heatmap-item:hover {
+    border-color: var(--accent-primary);
+    transform: translateY(-2px);
+}
+
+.ping-heatmap-item .flag {
+    font-size: 1.8rem;
+    margin-bottom: 6px;
+}
+
+.ping-heatmap-item .country-name {
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+    text-align: center;
+    margin-bottom: 4px;
+    font-weight: 500;
+}
+
+.ping-heatmap-item .ping-val {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.ping-heatmap-item.excellent .ping-val { color: var(--success); }
+.ping-heatmap-item.good .ping-val { color: #4ade80; }
+.ping-heatmap-item.fair .ping-val { color: var(--warning); }
+.ping-heatmap-item.poor .ping-val { color: var(--danger); }
+
+.ping-heatmap-item.excellent { border-color: rgba(34, 197, 94, 0.3); }
+.ping-heatmap-item.good { border-color: rgba(74, 222, 128, 0.2); }
+.ping-heatmap-item.fair { border-color: rgba(245, 158, 11, 0.2); }
+.ping-heatmap-item.poor { border-color: rgba(239, 68, 68, 0.2); }
+
+.ping-table-container {
+    max-height: 600px;
+    overflow-y: auto;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+}
+
+/* DNS Page */
+.dns-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.dns-ranking {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.dns-rank-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    transition: var(--transition-fast);
+}
+
+.dns-rank-item:hover {
+    border-color: var(--accent-primary);
+}
+
+.dns-rank-item .rank-num {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+}
+
+.dns-rank-item:nth-child(1) .rank-num { background: rgba(245, 158, 11, 0.15); color: #f59e0b; }
+.dns-rank-item:nth-child(2) .rank-num { background: rgba(148, 163, 184, 0.15); color: #94a3b8; }
+.dns-rank-item:nth-child(3) .rank-num { background: rgba(180, 83, 9, 0.15); color: #d97706; }
+.dns-rank-item:nth-child(n+4) .rank-num { background: var(--bg-card); color: var(--text-muted); }
+
+.dns-rank-info {
+    flex: 1;
+}
+
+.dns-rank-name {
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 2px;
+}
+
+.dns-rank-ip {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.dns-rank-latency {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--accent-primary);
+}
+
+/* CDN Page */
+.cdn-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+/* Port Scanner */
+.port-visual {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 20px;
+    padding: 16px;
+    background: var(--bg-primary);
+    border-radius: var(--radius-md);
+    min-height: 60px;
+}
+
+.port-block {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    font-weight: 600;
+    cursor: default;
+    transition: var(--transition-fast);
+    border: 1px solid transparent;
+}
+
+.port-block.open {
+    background: rgba(34, 197, 94, 0.12);
+    color: var(--success);
+    border-color: rgba(34, 197, 94, 0.3);
+}
+
+.port-block.closed {
+    background: rgba(239, 68, 68, 0.08);
+    color: var(--danger);
+    border-color: rgba(239, 68, 68, 0.15);
+}
+
+.port-block.filtered {
+    background: rgba(245, 158, 11, 0.08);
+    color: var(--warning);
+    border-color: rgba(245, 158, 11, 0.15);
+}
+
+.port-block:hover {
+    transform: scale(1.15);
+    z-index: 2;
+}
+
+/* Protocol Page */
+.protocol-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.protocol-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    text-align: center;
+    transition: var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+}
+
+.protocol-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--accent-gradient);
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+}
+
+.protocol-card:hover::before {
+    opacity: 1;
+}
+
+.protocol-card:hover {
+    border-color: var(--border-glow);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-glow);
+}
+
+.protocol-card .proto-icon {
+    width: 50px;
+    height: 50px;
+    margin: 0 auto 12px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+}
+
+.protocol-card .proto-icon.supported {
+    background: rgba(34, 197, 94, 0.12);
+    color: var(--success);
+}
+
+.protocol-card .proto-icon.partial {
+    background: rgba(245, 158, 11, 0.12);
+    color: var(--warning);
+}
+
+.protocol-card .proto-icon.blocked {
+    background: rgba(239, 68, 68, 0.12);
+    color: var(--danger);
+}
+
+.protocol-card .proto-name {
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 4px;
+}
+
+.protocol-card .proto-status {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.protocol-card .proto-status.supported { color: var(--success); }
+.protocol-card .proto-status.partial { color: var(--warning); }
+.protocol-card .proto-status.blocked { color: var(--danger); }
+
+/* VPN Page */
+.vpn-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.vpn-summary-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.vpn-summary-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+}
+
+.vpn-summary-icon.blue { background: rgba(59, 130, 246, 0.12); color: var(--info); }
+.vpn-summary-icon.green { background: rgba(34, 197, 94, 0.12); color: var(--success); }
+.vpn-summary-icon.purple { background: rgba(124, 58, 237, 0.12); color: var(--accent-secondary); }
+.vpn-summary-icon.cyan { background: rgba(0, 212, 255, 0.12); color: var(--accent-primary); }
+
+.vpn-summary-info h4 {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+
+.vpn-summary-info .val {
+    font-size: 1.1rem;
+    font-weight: 700;
+    font-family: var(--font-mono);
+}
+
+.vpn-configs {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 16px;
+}
+
+.vpn-config-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 18px;
+    transition: var(--transition-fast);
+}
+
+.vpn-config-card:hover {
+    border-color: var(--accent-primary);
+}
+
+.vpn-config-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.vpn-config-name {
+    font-weight: 700;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.vpn-config-name i {
+    color: var(--accent-primary);
+}
+
+.vpn-config-badge {
+    font-size: 0.65rem;
+    padding: 3px 8px;
+    border-radius: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.vpn-config-badge.recommended {
+    background: rgba(34, 197, 94, 0.12);
+    color: var(--success);
+    border: 1px solid rgba(34, 197, 94, 0.25);
+}
+
+.vpn-config-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.vpn-config-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.vpn-config-detail .detail-label {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.vpn-config-detail .detail-value {
+    font-size: 0.85rem;
+    font-weight: 600;
+    font-family: var(--font-mono);
+    color: var(--text-primary);
+}
+
+/* Speed Test Page */
+.speed-dashboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.speed-gauge-container {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.speed-gauge {
+    text-align: center;
+}
+
+.gauge-circle {
+    position: relative;
+    width: 180px;
+    height: 180px;
+    margin-bottom: 12px;
+}
+
+.gauge-circle svg {
+    transform: rotate(-90deg);
+    width: 100%;
+    height: 100%;
+}
+
+.gauge-bg {
+    fill: none;
+    stroke: var(--bg-secondary);
+    stroke-width: 8;
+}
+
+.gauge-fill {
+    fill: none;
+    stroke: url(#gauge-gradient);
+    stroke-width: 8;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 1s ease;
+}
+
+#download-fill { stroke: var(--accent-primary); }
+#upload-fill { stroke: var(--accent-secondary); }
+#ping-fill { stroke: var(--success); }
+
+.gauge-value {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.gauge-value span {
+    display: block;
+    font-size: 2rem;
+    font-weight: 800;
+    font-family: var(--font-mono);
+    color: var(--text-primary);
+}
+
+.gauge-value small {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.speed-gauge h4 {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+.speed-details {
+    width: 100%;
+    max-width: 700px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+}
+
+.speed-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.speed-detail-item {
+    text-align: center;
+    padding: 14px;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+}
+
+.speed-detail-item .detail-label {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+}
+
+.speed-detail-item .detail-value {
+    font-size: 1.1rem;
+    font-weight: 700;
+    font-family: var(--font-mono);
+}
+
+/* Report Page */
+.report-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+}
+
+.report-container {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    min-height: 400px;
+}
+
+.report-section {
+    margin-bottom: 30px;
+}
+
+.report-section h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--accent-primary);
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.report-section h3 i {
+    font-size: 1rem;
+}
+
+.report-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.report-summary-item {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+    padding: 14px;
+    text-align: center;
+}
+
+.report-summary-item .rsi-label {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+}
+
+.report-summary-item .rsi-value {
+    font-size: 1.1rem;
+    font-weight: 700;
+    font-family: var(--font-mono);
+}
+
+.report-table-wrap {
+    overflow-x: auto;
+    margin-top: 12px;
+}
+
+/* Progress indicator for scanning */
+.scan-progress {
+    width: 100%;
+    height: 4px;
+    background: var(--bg-secondary);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 16px;
+}
+
+.scan-progress-bar {
+    height: 100%;
+    background: var(--accent-gradient);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+    width: 0%;
+}
+
+/* Responsive overrides for pages */
+@media (max-width: 768px) {
+    .connection-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dns-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cdn-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .protocol-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    }
+
+    .vpn-configs {
+        grid-template-columns: 1fr;
+    }
+
+    .speed-gauge-container {
+        gap: 20px;
+    }
+
+    .gauge-circle {
+        width: 140px;
+        height: 140px;
+    }
+
+    .gauge-value span {
+        font-size: 1.5rem;
+    }
+}

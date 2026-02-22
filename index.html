@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NetScanner Pro - Advanced Network Analysis Tool</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔍</text></svg>">
+</head>
+<body>
+    <!-- Particle Background -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loader-container">
+            <div class="cyber-loader">
+                <div class="loader-ring"></div>
+                <div class="loader-ring"></div>
+                <div class="loader-ring"></div>
+                <div class="loader-icon"><i class="fas fa-satellite-dish"></i></div>
+            </div>
+            <h2 class="loader-title">NetScanner Pro</h2>
+            <p class="loader-subtitle">Initializing Network Analysis Engine...</p>
+            <div class="loader-progress">
+                <div class="loader-progress-bar" id="loader-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar Navigation -->
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-satellite-dish"></i>
+                <span>NetScanner<span class="pro">Pro</span></span>
+            </div>
+            <button class="sidebar-toggle" id="sidebar-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        <ul class="nav-menu">
+            <li class="nav-item active" data-page="dashboard">
+                <a href="#"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a>
+            </li>
+            <li class="nav-item" data-page="connection">
+                <a href="#"><i class="fas fa-network-wired"></i><span>Connection Info</span></a>
+            </li>
+            <li class="nav-item" data-page="ping">
+                <a href="#"><i class="fas fa-globe-americas"></i><span>Global Ping Test</span></a>
+            </li>
+            <li class="nav-item" data-page="dns">
+                <a href="#"><i class="fas fa-server"></i><span>DNS Analysis</span></a>
+            </li>
+            <li class="nav-item" data-page="cdn">
+                <a href="#"><i class="fas fa-cloud"></i><span>CDN & Tunnels</span></a>
+            </li>
+            <li class="nav-item" data-page="ports">
+                <a href="#"><i class="fas fa-door-open"></i><span>Port Scanner</span></a>
+            </li>
+            <li class="nav-item" data-page="protocols">
+                <a href="#"><i class="fas fa-shield-alt"></i><span>Protocols</span></a>
+            </li>
+            <li class="nav-item" data-page="vpn">
+                <a href="#"><i class="fas fa-lock"></i><span>VPN Advisor</span></a>
+            </li>
+            <li class="nav-item" data-page="speed">
+                <a href="#"><i class="fas fa-tachometer-alt"></i><span>Speed Test</span></a>
+            </li>
+            <li class="nav-item" data-page="report">
+                <a href="#"><i class="fas fa-file-alt"></i><span>Full Report</span></a>
+            </li>
+        </ul>
+        <div class="sidebar-footer">
+            <div class="version">v3.0.0 Professional</div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Top Bar -->
+        <header id="topbar">
+            <div class="topbar-left">
+                <button class="mobile-menu-btn" id="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1 id="page-title">Dashboard</h1>
+            </div>
+            <div class="topbar-right">
+                <div class="scan-status" id="scan-status">
+                    <span class="status-dot"></span>
+                    <span class="status-text">Ready</span>
+                </div>
+                <button class="btn-scan" id="btn-full-scan">
+                    <i class="fas fa-play"></i>
+                    <span>Full Scan</span>
+                </button>
+                <button class="btn-export" id="btn-export">
+                    <i class="fas fa-download"></i>
+                    <span>Export</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Pages Container -->
+        <div id="pages-container">
+
+            <!-- Dashboard Page -->
+            <section class="page active" id="page-dashboard">
+                <div class="dashboard-grid">
+                    <div class="card stat-card" id="card-ip">
+                        <div class="card-icon"><i class="fas fa-fingerprint"></i></div>
+                        <div class="card-info">
+                            <span class="card-label">Your IP</span>
+                            <span class="card-value" id="dash-ip">Scanning...</span>
+                        </div>
+                    </div>
+                    <div class="card stat-card" id="card-location">
+                        <div class="card-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div class="card-info">
+                            <span class="card-label">Location</span>
+                            <span class="card-value" id="dash-location">Scanning...</span>
+                        </div>
+                    </div>
+                    <div class="card stat-card" id="card-isp">
+                        <div class="card-icon"><i class="fas fa-building"></i></div>
+                        <div class="card-info">
+                            <span class="card-label">ISP</span>
+                            <span class="card-value" id="dash-isp">Scanning...</span>
+                        </div>
+                    </div>
+                    <div class="card stat-card" id="card-dns">
+                        <div class="card-icon"><i class="fas fa-server"></i></div>
+                        <div class="card-info">
+                            <span class="card-label">Best DNS</span>
+                            <span class="card-value" id="dash-dns">Scanning...</span>
+                        </div>
+                    </div>
+                    <div class="card stat-card" id="card-best-vpn">
+                        <div class="card-icon"><i class="fas fa-trophy"></i></div>
+                        <div class="card-info">
+                            <span class="card-label">Best VPN Location</span>
+                            <span class="card-value" id="dash-best-vpn">Scanning...</span>
+                        </div>
+                    </div>
+                    <div class="card stat-card" id="card-latency">
+                        <div class="card-icon"><i class="fas fa-clock"></i></div>
+                        <div class="card-info">
+                            <span class="card-label">Avg Latency</span>
+                            <span class="card-value" id="dash-latency">Scanning...</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-row">
+                    <div class="card wide-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-chart-line"></i> Network Overview</h3>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="network-chart" height="250"></canvas>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-list-ol"></i> Top 5 Locations</h3>
+                        </div>
+                        <div class="card-body">
+                            <ul class="top-locations-list" id="top-locations">
+                                <li class="skeleton-loader"></li>
+                                <li class="skeleton-loader"></li>
+                                <li class="skeleton-loader"></li>
+                                <li class="skeleton-loader"></li>
+                                <li class="skeleton-loader"></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-terminal"></i> Live Scan Log</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="scan-log" id="scan-log">
+                            <div class="log-entry info">
+                                <span class="log-time">--:--:--</span>
+                                <span class="log-msg">System ready. Click "Full Scan" to begin comprehensive analysis.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Connection Info Page -->
+            <section class="page" id="page-connection">
+                <div class="page-header">
+                    <h2><i class="fas fa-network-wired"></i> Connection Information</h2>
+                    <p>Detailed analysis of your network connection and location</p>
+                </div>
+                <div class="connection-grid">
+                    <div class="card">
+                        <div class="card-header"><h3><i class="fas fa-info-circle"></i> IP Details</h3></div>
+                        <div class="card-body">
+                            <div class="info-table" id="ip-details">
+                                <div class="info-row skeleton-loader"></div>
+                                <div class="info-row skeleton-loader"></div>
+                                <div class="info-row skeleton-loader"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header"><h3><i class="fas fa-map"></i> Geolocation</h3></div>
+                        <div class="card-body">
+                            <div id="geo-map" class="geo-map-container">
+                                <div class="map-placeholder">
+                                    <i class="fas fa-map-marked-alt"></i>
+                                    <span>Run scan to show location</span>
+                                </div>
+                            </div>
+                            <div class="info-table" id="geo-details">
+                                <div class="info-row skeleton-loader"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header"><h3><i class="fas fa-plug"></i> Connection Type</h3></div>
+                        <div class="card-body">
+                            <div class="info-table" id="connection-type-details">
+                                <div class="info-row skeleton-loader"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header"><h3><i class="fas fa-shield-alt"></i> Security Check</h3></div>
+                        <div class="card-body">
+                            <div class="info-table" id="security-details">
+                                <div class="info-row skeleton-loader"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Global Ping Test Page -->
+            <section class="page" id="page-ping">
+                <div class="page-header">
+                    <h2><i class="fas fa-globe-americas"></i> Global Ping Test</h2>
+                    <p>Test latency to servers in countries around the world</p>
+                    <button class="btn-action" id="btn-ping-test"><i class="fas fa-play"></i> Start Ping Test</button>
+                </div>
+                <div class="ping-controls">
+                    <div class="filter-group">
+                        <label>Sort by:</label>
+                        <select id="ping-sort">
+                            <option value="latency">Latency (Low to High)</option>
+                            <option value="country">Country (A-Z)</option>
+                            <option value="region">Region</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Filter:</label>
+                        <input type="text" id="ping-filter" placeholder="Search country...">
+                    </div>
+                </div>
+                <div class="ping-results-container">
+                    <div class="world-map-ascii" id="world-ping-map">
+                        <p class="placeholder-text">Run ping test to see results on the map</p>
+                    </div>
+                    <div class="ping-table-container">
+                        <table class="data-table" id="ping-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Country</th>
+                                    <th>City</th>
+                                    <th>Server</th>
+                                    <th>Latency</th>
+                                    <th>Status</th>
+                                    <th>Rating</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ping-tbody">
+                                <tr><td colspan="7" class="empty-msg">Click "Start Ping Test" to begin</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- DNS Analysis Page -->
+            <section class="page" id="page-dns">
+                <div class="page-header">
+                    <h2><i class="fas fa-server"></i> DNS Analysis</h2>
+                    <p>Test and compare DNS servers for your connection</p>
+                    <button class="btn-action" id="btn-dns-test"><i class="fas fa-play"></i> Start DNS Test</button>
+                </div>
+                <div class="dns-grid">
+                    <div class="card">
+                        <div class="card-header"><h3><i class="fas fa-trophy"></i> Best DNS Servers</h3></div>
+                        <div class="card-body">
+                            <div class="dns-ranking" id="dns-ranking">
+                                <p class="placeholder-text">Run DNS test to see rankings</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header"><h3><i class="fas fa-chart-bar"></i> DNS Comparison</h3></div>
+                        <div class="card-body">
+                            <canvas id="dns-chart" height="300"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header"><h3><i class="fas fa-list"></i> All DNS Results</h3></div>
+                    <div class="card-body">
+                        <table class="data-table" id="dns-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>DNS Server</th>
+                                    <th>Provider</th>
+                                    <th>Primary IP</th>
+                                    <th>Secondary IP</th>
+                                    <th>Latency</th>
+                                    <th>Features</th>
+                                    <th>Rating</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dns-tbody">
+                                <tr><td colspan="8" class="empty-msg">Click "Start DNS Test" to begin</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CDN & Tunnels Page -->
+            <section class="page" id="page-cdn">
+                <div class="page-header">
+                    <h2><i class="fas fa-cloud"></i> CDN & Tunnel Analysis</h2>
+                    <p>Test CDN providers and tunneling services for optimal performance</p>
+                    <button class="btn-action" id="btn-cdn-test"><i class="fas fa-play"></i> Start CDN Test</button>
+                </div>
+                <div class="cdn-grid">
+                    <div class="card">
+                        <div class="card-header"><h3><i class="fas fa-cloud-download-alt"></i> CDN Providers</h3></div>
+                        <div class="card-body">
+                            <table class="data-table" id="cdn-table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>CDN Provider</th>
+                                        <th>Latency</th>
+                                        <th>Status</th>
+                                        <th>Features</th>
+                                        <th>Rating</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="cdn-tbody">
+                                    <tr><td colspan="6" class="empty-msg">Click "Start CDN Test" to begin</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header"><h3><i class="fas fa-project-diagram"></i> Tunnel Services</h3></div>
+                        <div class="card-body">
+                            <table class="data-table" id="tunnel-table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Service</th>
+                                        <th>Protocol</th>
+                                        <th>Latency</th>
+                                        <th>Status</th>
+                                        <th>Rating</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tunnel-tbody">
+                                    <tr><td colspan="6" class="empty-msg">Click "Start CDN Test" to begin</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Port Scanner Page -->
+            <section class="page" id="page-ports">
+                <div class="page-header">
+                    <h2><i class="fas fa-door-open"></i> Port Scanner</h2>
+                    <p>Check which ports are open and accessible from your connection</p>
+                    <button class="btn-action" id="btn-port-test"><i class="fas fa-play"></i> Start Port Scan</button>
+                </div>
+                <div class="port-controls">
+                    <div class="filter-group">
+                        <label>Scan Type:</label>
+                        <select id="port-scan-type">
+                            <option value="common">Common Ports</option>
+                            <option value="vpn">VPN Ports</option>
+                            <option value="web">Web Ports</option>
+                            <option value="all">All Important Ports</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header"><h3><i class="fas fa-list"></i> Port Scan Results</h3></div>
+                    <div class="card-body">
+                        <div class="port-visual" id="port-visual">
+                            <p class="placeholder-text">Run port scan to see visual results</p>
+                        </div>
+                        <table class="data-table" id="port-table">
+                            <thead>
+                                <tr>
+                                    <th>Port</th>
+                                    <th>Service</th>
+                                    <th>Protocol</th>
+                                    <th>Status</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody id="port-tbody">
+                                <tr><td colspan="5" class="empty-msg">Click "Start Port Scan" to begin</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Protocols Page -->
+            <section class="page" id="page-protocols">
+                <div class="page-header">
+                    <h2><i class="fas fa-shield-alt"></i> Protocol Analysis</h2>
+                    <p>Test VPN and network protocols supported by your connection</p>
+                    <button class="btn-action" id="btn-protocol-test"><i class="fas fa-play"></i> Start Protocol Test</button>
+                </div>
+                <div class="protocol-grid" id="protocol-grid">
+                    <p class="placeholder-text">Run protocol test to see results</p>
+                </div>
+                <div class="card">
+                    <div class="card-header"><h3><i class="fas fa-list"></i> Protocol Details</h3></div>
+                    <div class="card-body">
+                        <table class="data-table" id="protocol-table">
+                            <thead>
+                                <tr>
+                                    <th>Protocol</th>
+                                    <th>Type</th>
+                                    <th>Default Port</th>
+                                    <th>Encryption</th>
+                                    <th>Speed</th>
+                                    <th>Security</th>
+                                    <th>Status</th>
+                                    <th>Recommendation</th>
+                                </tr>
+                            </thead>
+                            <tbody id="protocol-tbody">
+                                <tr><td colspan="8" class="empty-msg">Click "Start Protocol Test" to begin</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VPN Advisor Page -->
+            <section class="page" id="page-vpn">
+                <div class="page-header">
+                    <h2><i class="fas fa-lock"></i> VPN Advisor</h2>
+                    <p>Best VPN configurations and recommendations based on your network</p>
+                    <button class="btn-action" id="btn-vpn-test"><i class="fas fa-play"></i> Generate VPN Recommendations</button>
+                </div>
+                <div class="vpn-summary" id="vpn-summary">
+                    <p class="placeholder-text">Run VPN analysis to get recommendations</p>
+                </div>
+                <div class="card">
+                    <div class="card-header"><h3><i class="fas fa-star"></i> Recommended VPN Configurations</h3></div>
+                    <div class="card-body">
+                        <div class="vpn-configs" id="vpn-configs">
+                            <p class="placeholder-text">Run analysis to see configurations</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header"><h3><i class="fas fa-list-ol"></i> VPN Provider Rankings</h3></div>
+                    <div class="card-body">
+                        <table class="data-table" id="vpn-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>VPN Provider</th>
+                                    <th>Best Protocol</th>
+                                    <th>Best Location</th>
+                                    <th>Speed Score</th>
+                                    <th>Security</th>
+                                    <th>Overall</th>
+                                </tr>
+                            </thead>
+                            <tbody id="vpn-tbody">
+                                <tr><td colspan="7" class="empty-msg">Click "Generate VPN Recommendations"</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Speed Test Page -->
+            <section class="page" id="page-speed">
+                <div class="page-header">
+                    <h2><i class="fas fa-tachometer-alt"></i> Speed Test</h2>
+                    <p>Test your download and upload speed</p>
+                    <button class="btn-action" id="btn-speed-test"><i class="fas fa-play"></i> Start Speed Test</button>
+                </div>
+                <div class="speed-dashboard">
+                    <div class="speed-gauge-container">
+                        <div class="speed-gauge" id="download-gauge">
+                            <div class="gauge-circle">
+                                <svg viewBox="0 0 200 200">
+                                    <circle cx="100" cy="100" r="90" class="gauge-bg"/>
+                                    <circle cx="100" cy="100" r="90" class="gauge-fill" id="download-fill" stroke-dasharray="565" stroke-dashoffset="565"/>
+                                </svg>
+                                <div class="gauge-value">
+                                    <span id="download-speed">0</span>
+                                    <small>Mbps</small>
+                                </div>
+                            </div>
+                            <h4>Download</h4>
+                        </div>
+                        <div class="speed-gauge" id="upload-gauge">
+                            <div class="gauge-circle">
+                                <svg viewBox="0 0 200 200">
+                                    <circle cx="100" cy="100" r="90" class="gauge-bg"/>
+                                    <circle cx="100" cy="100" r="90" class="gauge-fill" id="upload-fill" stroke-dasharray="565" stroke-dashoffset="565"/>
+                                </svg>
+                                <div class="gauge-value">
+                                    <span id="upload-speed">0</span>
+                                    <small>Mbps</small>
+                                </div>
+                            </div>
+                            <h4>Upload</h4>
+                        </div>
+                        <div class="speed-gauge" id="ping-gauge">
+                            <div class="gauge-circle">
+                                <svg viewBox="0 0 200 200">
+                                    <circle cx="100" cy="100" r="90" class="gauge-bg"/>
+                                    <circle cx="100" cy="100" r="90" class="gauge-fill" id="ping-fill" stroke-dasharray="565" stroke-dashoffset="565"/>
+                                </svg>
+                                <div class="gauge-value">
+                                    <span id="ping-value">0</span>
+                                    <small>ms</small>
+                                </div>
+                            </div>
+                            <h4>Ping</h4>
+                        </div>
+                    </div>
+                    <div class="speed-details" id="speed-details">
+                        <p class="placeholder-text">Run speed test to see details</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Full Report Page -->
+            <section class="page" id="page-report">
+                <div class="page-header">
+                    <h2><i class="fas fa-file-alt"></i> Full Report</h2>
+                    <p>Complete network analysis report with all results</p>
+                    <div class="report-actions">
+                        <button class="btn-action" id="btn-generate-report"><i class="fas fa-sync"></i> Generate Report</button>
+                        <button class="btn-action btn-success" id="btn-download-json"><i class="fas fa-download"></i> Download JSON</button>
+                        <button class="btn-action btn-info" id="btn-download-csv"><i class="fas fa-file-csv"></i> Download CSV</button>
+                        <button class="btn-action btn-warning" id="btn-download-pdf"><i class="fas fa-file-pdf"></i> Download HTML Report</button>
+                    </div>
+                </div>
+                <div class="report-container" id="report-container">
+                    <p class="placeholder-text">Run a full scan first, then generate your report here</p>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Toast Container -->
+    <div id="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="js/particles.js"></script>
+    <script src="js/chart-mini.js"></script>
+    <script src="js/scanner.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
